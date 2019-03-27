@@ -1,0 +1,3 @@
+#!/bin/bash
+source ~/pythonDevelopment/18Guide/venv/bin/activate
+echo activated
