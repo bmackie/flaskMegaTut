@@ -1,3 +1,4 @@
 #!/bin/bash
-source ~/pythonDevelopment/18Guide/venv/bin/activate
+source ~/pythonDevelopment/flaskMegaTut/venv/bin/activate
 echo activated
+echo if python errors check source path
