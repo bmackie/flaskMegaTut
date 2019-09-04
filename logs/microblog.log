@@ -95,3 +95,4 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2019-09-02 10:42:15,503 INFO: Microblog startup [in /home/bmackie/pythonDevelopment/flaskMegaTut/app/__init__.py:45]
 2019-09-03 10:47:13,499 INFO: Microblog startup [in /home/bmackie/pythonDevelopment/flaskMegaTut/app/__init__.py:45]
 2019-09-03 10:53:04,608 INFO: Microblog startup [in /home/bmackie/pythonDevelopment/flaskMegaTut/app/__init__.py:45]
+2019-09-04 11:06:15,706 INFO: Microblog startup [in /home/bmackie/pythonDevelopment/flaskMegaTut/app/__init__.py:52]

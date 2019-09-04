@@ -1,9 +1,10 @@
 from datetime import datetime
-from app import db, login
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 from hashlib import md5
-
+from time import time
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
+from app import app, db, login
 
 
 followers = db.Table(
@@ -11,6 +12,7 @@ followers = db.Table(
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +40,7 @@ class User(UserMixin, db.Model):
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
-                digest, size)
+            digest, size)
 
     def follow(self, user):
         if not self.is_following(user):
@@ -50,11 +52,7 @@ class User(UserMixin, db.Model):
 
     def is_following(self, user):
         return self.followed.filter(
-                followers.c.followed_id == user.id).count() > 0
-
-    def self_posts(self):
-        own = Post.query.filter_by(user_id=self.id)
-        return own
+            followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
         followed = Post.query.join(
@@ -77,9 +75,11 @@ class User(UserMixin, db.Model):
             return
         return User.query.get(id)
 
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -89,4 +89,3 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
-
